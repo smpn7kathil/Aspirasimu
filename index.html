@@ -20,14 +20,15 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    padding: 15px;
   }
 
   .container {
     background: #1e293b;
-    padding: 30px;
+    padding: 25px;
     border-radius: 16px;
     width: 100%;
-    max-width: 450px;
+    max-width: 420px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.4);
     animation: fadeIn 0.8s ease;
   }
@@ -35,39 +36,42 @@
   h2 {
     text-align: center;
     margin-bottom: 20px;
+    font-size: 22px;
   }
 
   label {
     font-size: 14px;
-    margin-top: 10px;
+    margin-top: 12px;
     display: block;
   }
 
   input, textarea {
     width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border-radius: 10px;
+    padding: 12px;
+    margin-top: 6px;
+    border-radius: 12px;
     border: none;
     outline: none;
     background: #334155;
     color: white;
+    font-size: 14px;
   }
 
   textarea {
     resize: none;
-    height: 100px;
+    height: 110px;
   }
 
   button {
     width: 100%;
-    padding: 12px;
-    margin-top: 15px;
+    padding: 14px;
+    margin-top: 18px;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     background: #38bdf8;
     color: black;
     font-weight: bold;
+    font-size: 15px;
     cursor: pointer;
     transition: 0.3s;
   }
@@ -87,9 +91,10 @@
     display: none;
     margin-top: 15px;
     background: #22c55e;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 12px;
+    border-radius: 12px;
     text-align: center;
+    font-size: 14px;
     animation: fadeIn 0.5s ease;
   }
 
@@ -98,9 +103,29 @@
     to {opacity: 1; transform: translateY(0);}
   }
 
-  @media (max-width: 500px) {
+  /* MOBILE EXTRA OPTIMIZATION */
+  @media (max-width: 480px) {
+    body {
+      align-items: flex-start;
+      padding-top: 30px;
+    }
+
     .container {
-      margin: 20px;
+      padding: 20px;
+      border-radius: 14px;
+    }
+
+    h2 {
+      font-size: 20px;
+    }
+
+    input, textarea {
+      font-size: 15px;
+    }
+
+    button {
+      font-size: 16px;
+      padding: 15px;
     }
   }
 </style>
@@ -113,16 +138,16 @@
 
   <form id="aspirasiForm">
 
-    <!-- Nama (opsional) -->
-    <label>Nama (opsional)</label>
+    <!-- Nama -->
+    <label>Nama</label>
     <input type="text" id="nama">
 
-    <!-- Kelas / kategori -->
-    <label>Kelas / Kategori *</label>
+    <!-- Kelas  -->
+    <label>Kelas</label>
     <input type="text" id="kategori" required>
 
     <!-- Isi aspirasi -->
-    <label>Isi Aspirasi *</label>
+    <label>Isi Aspirasi</label>
     <textarea id="aspirasi" required></textarea>
 
     <!-- Anti spam -->
