@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form Aspirasi</title>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+  }
+
+  body {
+    background: #0f172a;
+    color: #e2e8f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .container {
+    background: #1e293b;
+    padding: 30px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    animation: fadeIn 0.8s ease;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  label {
+    font-size: 14px;
+    margin-top: 10px;
+    display: block;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background: #334155;
+    color: white;
+  }
+
+  textarea {
+    resize: none;
+    height: 100px;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 10px;
+    background: #38bdf8;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    background: #0ea5e9;
+  }
+
+  .loading {
+    display: none;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+
+  .success {
+    display: none;
+    margin-top: 15px;
+    background: #22c55e;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(10px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+
+  @media (max-width: 500px) {
+    .container {
+      margin: 20px;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h2>Form Aspirasi</h2>
+
+  <form id="aspirasiForm">
+
+    <!-- Nama (opsional) -->
+    <label>Nama (opsional)</label>
+    <input type="text" id="nama">
+
+    <!-- Kelas / kategori -->
+    <label>Kelas / Kategori *</label>
+    <input type="text" id="kategori" required>
+
+    <!-- Isi aspirasi -->
+    <label>Isi Aspirasi *</label>
+    <textarea id="aspirasi" required></textarea>
+
+    <!-- Anti spam -->
+    <label id="captchaLabel"></label>
+    <input type="number" id="captcha" required>
+
+    <button type="submit">Kirim</button>
+
+    <div class="loading" id="loading">Mengirim...</div>
+    <div class="success" id="successMsg">Aspirasi berhasil dikirim!</div>
+
+  </form>
+</div>
+
+<script>
+  // =========================
+  // CONFIG GOOGLE FORM
+  // =========================
+
+  const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdEGhz3R9luAlULrXG7h6hTxM4g2IQPCdjnNUO2AmFnvNi1ew/formResponse";
+  // GANTI FORM_ID
+
+  const ENTRY_NAMA = "entry.826095392";   // ganti
+  const ENTRY_KATEGORI = "entry.232948768"; // ganti
+  const ENTRY_ASPIRASI = "entry.1321721991"; // ganti
+
+
+  // =========================
+  // CAPTCHA (ANTI SPAM)
+  // =========================
+
+  let num1 = Math.floor(Math.random() * 10);
+  let num2 = Math.floor(Math.random() * 10);
+
+  document.getElementById("captchaLabel").innerText =
+    `Berapa ${num1} + ${num2}?`;
+
+  const correctAnswer = num1 + num2;
+
+
+  // =========================
+  // SUBMIT FORM
+  // =========================
+
+  document.getElementById("aspirasiForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const nama = document.getElementById("nama").value;
+    const kategori = document.getElementById("kategori").value;
+    const aspirasi = document.getElementById("aspirasi").value;
+    const captcha = document.getElementById("captcha").value;
+
+    // VALIDASI
+    if (!kategori || !aspirasi) {
+      alert("Harap isi semua field wajib!");
+      return;
+    }
+
+    if (parseInt(captcha) !== correctAnswer) {
+      alert("Jawaban matematika salah!");
+      return;
+    }
+
+    // LOADING
+    document.getElementById("loading").style.display = "block";
+
+    // KIRIM KE GOOGLE FORM
+    fetch(FORM_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: 
+        `${ENTRY_NAMA}=${encodeURIComponent(nama)}&` +
+        `${ENTRY_KATEGORI}=${encodeURIComponent(kategori)}&` +
+        `${ENTRY_ASPIRASI}=${encodeURIComponent(aspirasi)}`
+    })
+    .then(() => {
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("successMsg").style.display = "block";
+
+      // RESET FORM
+      document.getElementById("aspirasiForm").reset();
+    })
+    .catch(() => {
+      document.getElementById("loading").style.display = "none";
+      alert("Terjadi kesalahan!");
+    });
+
+  });
+</script>
+
+</body>
+</html>
