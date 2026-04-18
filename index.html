@@ -3,249 +3,335 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Form Aspirasi</title>
+<title>Website Sekolah</title>
 
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Segoe UI", sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* BACKGROUND (BIRU GRADIENT) */
+body {
+  background: linear-gradient(135deg, #dbeafe, #f0f9ff);
+  color: #1e293b;
+}
+
+/* NAVBAR (APPLE STYLE + BIRU) */
+.navbar {
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.6);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 35px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+/* LOGO */
+.nav-logo img {
+  height: 50px;
+}
+
+/* MENU */
+.nav-menu {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-menu button {
+  background: none;
+  border: none;
+  font-size: 15px;
+  color: #475569;
+  cursor: pointer;
+  position: relative;
+  padding: 6px 0;
+  transition: 0.3s;
+}
+
+/* HOVER */
+.nav-menu button:hover {
+  color: #0284c7;
+}
+
+/* ACTIVE (GARIS BIRU APPLE STYLE) */
+.nav-menu button.active {
+  color: #0284c7;
+}
+
+.nav-menu button.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+  border-radius: 2px;
+}
+
+/* SECTION */
+.section {
+  display: none;
+  padding: 50px 20px;
+  animation: fadeIn 0.4s ease;
+}
+
+.active-section {
+  display: block;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 600px;
+  margin: auto;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* INPUT */
+input, textarea, select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid #cbd5f5;
+  background: #f8fafc;
+  transition: 0.2s;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 2px rgba(56,189,248,0.2);
+  outline: none;
+}
+
+/* BUTTON */
+button.submit {
+  width: 100%;
+  padding: 14px;
+  margin-top: 18px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button.submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(14,165,233,0.3);
+}
+
+/* SUCCESS */
+.success {
+  display: none;
+  margin-top: 10px;
+  background: #22c55e;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* NEWS */
+.news-list {
+  max-width: 700px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.news-item {
+  background: rgba(255,255,255,0.9);
+  padding: 18px;
+  border-radius: 14px;
+  cursor: pointer;
+  border: 1px solid #e2e8f0;
+  transition: 0.25s;
+}
+
+.news-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(10px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+/* MOBILE */
+@media(max-width:600px){
+  .navbar {
+    padding: 10px 15px;
   }
 
-  body {
-    background: #0f172a;
-    color: #e2e8f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 15px;
+  .nav-menu {
+    gap: 15px;
   }
 
-  .container {
-    background: #1e293b;
-    padding: 25px;
-    border-radius: 16px;
-    width: 100%;
-    max-width: 420px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-    animation: fadeIn 0.8s ease;
+  .nav-logo img {
+    height: 35px;
   }
-
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 22px;
-  }
-
-  label {
-    font-size: 14px;
-    margin-top: 12px;
-    display: block;
-  }
-
-  input, textarea {
-    width: 100%;
-    padding: 12px;
-    margin-top: 6px;
-    border-radius: 12px;
-    border: none;
-    outline: none;
-    background: #334155;
-    color: white;
-    font-size: 14px;
-  }
-
-  textarea {
-    resize: none;
-    height: 110px;
-  }
-
-  button {
-    width: 100%;
-    padding: 14px;
-    margin-top: 18px;
-    border: none;
-    border-radius: 12px;
-    background: #38bdf8;
-    color: black;
-    font-weight: bold;
-    font-size: 15px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-
-  button:hover {
-    background: #0ea5e9;
-  }
-
-  .loading {
-    display: none;
-    text-align: center;
-    margin-top: 10px;
-    font-size: 14px;
-  }
-
-  .success {
-    display: none;
-    margin-top: 15px;
-    background: #22c55e;
-    padding: 12px;
-    border-radius: 12px;
-    text-align: center;
-    font-size: 14px;
-    animation: fadeIn 0.5s ease;
-  }
-
-  @keyframes fadeIn {
-    from {opacity: 0; transform: translateY(10px);}
-    to {opacity: 1; transform: translateY(0);}
-  }
-
-  /* MOBILE EXTRA OPTIMIZATION */
-  @media (max-width: 480px) {
-    body {
-      align-items: flex-start;
-      padding-top: 30px;
-    }
-
-    .container {
-      padding: 20px;
-      border-radius: 14px;
-    }
-
-    h2 {
-      font-size: 20px;
-    }
-
-    input, textarea {
-      font-size: 15px;
-    }
-
-    button {
-      font-size: 16px;
-      padding: 15px;
-    }
-  }
+}
 </style>
 </head>
 
 <body>
 
-<div class="container">
-  <h2>Form Aspirasi</h2>
+<!-- NAVBAR -->
+<nav class="navbar">
 
-  <form id="aspirasiForm">
+  <div class="nav-logo">
+    <img src="logo sekolah.png">
+  </div>
 
-    <!-- Nama -->
-    <label>Nama</label>
-    <input type="text" id="nama">
+  <div class="nav-menu">
+    <button onclick="showSection('home', this)" class="active">Home</button>
+    <button onclick="showSection('berita', this)">Berita</button>
+    <button onclick="showSection('tentang', this)">Tentang</button>
+    <button onclick="showSection('aspirasi', this)">Aspirasi</button>
+  </div>
 
-    <!-- Kelas  -->
-    <label>Kelas</label>
-    <select id="kategori" required>
-  <option value="">-- Pilih Kelas --</option>
-  <option value="7A">7A</option>
-  <option value="7B">7B</option>
-  <option value="7C">7C</option>
-  <option value="8">8</option>
-</select>
+  <div class="nav-logo">
+    <img src="logo osis.png">
+  </div>
 
-    <!-- Isi aspirasi -->
-    <label>Isi Aspirasi</label>
-    <textarea id="aspirasi" required></textarea>
+</nav>
 
-    <!-- Anti spam -->
-    <label id="captchaLabel"></label>
-    <input type="number" id="captcha" required>
+<!-- HOME -->
+<div id="home" class="section active-section">
+  <div class="container">
+    <h2>Selamat Datang</h2>
+    <p>Website resmi sekolah untuk informasi dan aspirasi siswa.</p>
+  </div>
+</div>
 
-    <button type="submit">Kirim</button>
+<!-- BERITA -->
+<div id="berita" class="section">
+  <div class="news-list">
+    <div class="news-item" onclick="openNews('1')">
+      <h3>Lomba Antar Kelas</h3>
+      <p>Klik untuk membaca selengkapnya...</p>
+    </div>
+    <div class="news-item" onclick="openNews('2')">
+      <h3>Ekstrakurikuler Dibuka</h3>
+      <p>Klik untuk membaca selengkapnya...</p>
+    </div>
+    <div class="news-item" onclick="openNews('3')">
+      <h3>Kegiatan Belajar Baru</h3>
+      <p>Klik untuk membaca selengkapnya...</p>
+    </div>
+  </div>
+</div>
 
-    <div class="loading" id="loading">Mengirim...</div>
-    <div class="success" id="successMsg">Aspirasi berhasil dikirim!</div>
+<!-- DETAIL -->
+<div id="detailBerita" class="section">
+  <div class="container">
+    <button onclick="showSection('berita', document.querySelectorAll('.nav-menu button')[1])">← Kembali</button>
+    <h2 id="detailJudul"></h2>
+    <p id="detailIsi"></p>
+  </div>
+</div>
 
-  </form>
+<!-- TENTANG -->
+<div id="tentang" class="section">
+  <div class="container">
+    <h2>Tentang Sekolah</h2>
+    <p>Sekolah ini berfokus pada pendidikan karakter, akademik, dan kreativitas siswa.</p>
+  </div>
+</div>
+
+<!-- ASPIRASI -->
+<div id="aspirasi" class="section">
+  <div class="container">
+    <h2>Form Aspirasi</h2>
+
+    <form id="form">
+      <label>Nama</label>
+      <input type="text" id="nama">
+
+      <label>Kelas</label>
+      <select id="kelas" required>
+        <option value="">-- Pilih Kelas --</option>
+        <option>7A</option>
+        <option>7B</option>
+        <option>7C</option>
+        <option>8</option>
+      </select>
+
+      <label>Aspirasi</label>
+      <textarea id="aspirasiInput" required></textarea>
+
+      <label id="captchaLabel"></label>
+      <input type="number" id="captcha" required>
+
+      <button type="submit" class="submit">Kirim</button>
+      <div class="success" id="success">Aspirasi berhasil dikirim!</div>
+    </form>
+  </div>
 </div>
 
 <script>
-  // =========================
-  // CONFIG GOOGLE FORM
-  // =========================
+// NAVIGATION
+function showSection(id, el){
+  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active-section"));
+  document.getElementById(id).classList.add("active-section");
 
-  const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdEGhz3R9luAlULrXG7h6hTxM4g2IQPCdjnNUO2AmFnvNi1ew/formResponse";
-  // GANTI FORM_ID
+  document.querySelectorAll(".nav-menu button").forEach(b=>b.classList.remove("active"));
+  if(el) el.classList.add("active");
+}
 
-  const ENTRY_NAMA = "entry.826095392";   // ganti
-  const ENTRY_KATEGORI = "entry.232948768"; // ganti
-  const ENTRY_ASPIRASI = "entry.1321721991"; // ganti
+// BERITA
+const beritaData = {
+  1:{judul:"Lomba Antar Kelas", isi:"Sekolah mengadakan lomba antar kelas..."},
+  2:{judul:"Ekstrakurikuler Dibuka", isi:"Pendaftaran ekskul dibuka..."},
+  3:{judul:"Kegiatan Belajar Baru", isi:"Metode belajar baru diterapkan..."}
+};
 
+function openNews(id){
+  document.getElementById("detailJudul").innerText=beritaData[id].judul;
+  document.getElementById("detailIsi").innerText=beritaData[id].isi;
+  showSection("detailBerita");
+}
 
-  // =========================
-  // CAPTCHA (ANTI SPAM)
-  // =========================
+// CAPTCHA
+let correctAnswer;
+function generateCaptcha(){
+  let a=Math.floor(Math.random()*10);
+  let b=Math.floor(Math.random()*10);
+  correctAnswer=a+b;
+  document.getElementById("captchaLabel").innerText=`Berapa ${a} + ${b}?`;
+}
+generateCaptcha();
 
-  let num1 = Math.floor(Math.random() * 10);
-  let num2 = Math.floor(Math.random() * 10);
+// FORM
+document.getElementById("form").addEventListener("submit",function(e){
+  e.preventDefault();
 
-  document.getElementById("captchaLabel").innerText =
-    `Berapa ${num1} + ${num2}?`;
+  if(parseInt(document.getElementById("captcha").value)!==correctAnswer){
+    alert("Captcha salah!");
+    return;
+  }
 
-  const correctAnswer = num1 + num2;
-
-
-  // =========================
-  // SUBMIT FORM
-  // =========================
-
-  document.getElementById("aspirasiForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    const nama = document.getElementById("nama").value;
-    const kategori = document.getElementById("kategori").value;
-    const aspirasi = document.getElementById("aspirasi").value;
-    const captcha = document.getElementById("captcha").value;
-
-    // VALIDASI
-    if (!kategori || !aspirasi) {
-      alert("Harap isi semua field wajib!");
-      return;
-    }
-
-    if (parseInt(captcha) !== correctAnswer) {
-      alert("Jawaban matematika salah!");
-      return;
-    }
-
-    // LOADING
-    document.getElementById("loading").style.display = "block";
-
-    // KIRIM KE GOOGLE FORM
-    fetch(FORM_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      body: 
-        `${ENTRY_NAMA}=${encodeURIComponent(nama)}&` +
-        `${ENTRY_KATEGORI}=${encodeURIComponent(kategori)}&` +
-        `${ENTRY_ASPIRASI}=${encodeURIComponent(aspirasi)}`
-    })
-    .then(() => {
-      document.getElementById("loading").style.display = "none";
-      document.getElementById("successMsg").style.display = "block";
-
-      // RESET FORM
-      document.getElementById("aspirasiForm").reset();
-    })
-    .catch(() => {
-      document.getElementById("loading").style.display = "none";
-      alert("Terjadi kesalahan!");
-    });
-
-  });
+  document.getElementById("success").style.display="block";
+  this.reset();
+  generateCaptcha();
+});
 </script>
 
 </body>
-</html>
+</html>a
